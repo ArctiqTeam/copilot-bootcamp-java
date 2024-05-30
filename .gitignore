@@ -9,4 +9,7 @@
 node_modules/
 package*.json
 
-.DS_Store/
+# Common OSX files
+.DS_Store
+.AppleDouble
+.LSOverride
