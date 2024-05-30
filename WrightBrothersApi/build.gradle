@@ -1,0 +1,9 @@
+dependencies {
+    // other dependencies
+
+    // Add Spring Boot Starter Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Add Spring Boot Starter Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+}
