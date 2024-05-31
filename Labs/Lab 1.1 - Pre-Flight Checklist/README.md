@@ -59,13 +59,12 @@ You can now use the development environment to work on the exercises in the Hand
     
     ```sh
     mvn install
-    mvn package
     ```
 
 - Run the application by typing the following commands in the terminal:
 
     ```sh
-    java -jar target/WrightAPI-Java-1.jar
+    mvn spring-boot:run
     ```
 
 - You should see some output like this:
