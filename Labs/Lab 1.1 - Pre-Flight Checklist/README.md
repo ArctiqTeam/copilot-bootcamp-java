@@ -70,7 +70,7 @@ You can now use the development environment to work on the exercises in the Hand
 
 - You should see some output like this:
 
-<img src="../../Images/SCreenshot-Lab1.1-RunIt.png" width="600"/>
+<img src="../../Images/Screenshot-Lab1.1-RunIt.png" width="600"/>
 
 ### Step 4: Verify calling the REST API
 
