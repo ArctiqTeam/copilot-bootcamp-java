@@ -46,9 +46,9 @@ what does the PlanesController do?
 
 - Request how to run the application:
 
-    ```md
-    how can I run the application?
-    ```
+```md
+how can I run the application?
+```
 
 Copilot will let you know you can run it using Maven and maybe even how to do it using Gradle. 
 
@@ -69,9 +69,9 @@ how can I install a plugin for IntelliJ?
 
 - Ask Copilot to explain the `PlanesController.ts` class
 
-    ```md
-    What does the PlanesController do?
-    ```
+```md
+What does the PlanesController do?
+```
 
 > [!NOTE]
 > GitHub Copilot will give a brief overview of the `PlanesController.java` class.
@@ -248,7 +248,7 @@ Then, allow copilot to suggest an appropriate check for this case.
         return ResponseEntity.ok(matchingPlanes);
 ```
 
-- Let's do it again, place your cursor inside the and at the top of the createPlane method.
+- Let's do it again in another method, place your cursor inside the and at the top of the `createPlane` method.
 
 - Type `// Return BadRequest if plane already exists by name` in the comment block.
 
