@@ -25,6 +25,22 @@ public class PlanesController {
         return planes;
     }
 
+    // Search Planes by name
+    @GetMapping("/search")
+    public ResponseEntity<List<Plane>> searchPlanes(@RequestParam String name) {
+        List<Plane> matchingPlanes = new ArrayList<>();
+        for (Plane plane : planes) {
+            if (plane.getName().toLowerCase().contains(name.toLowerCase())) {
+                matchingPlanes.add(plane);
+            }
+        }
+        // return 404 if no matching planes found
+        if (matchingPlanes.isEmpty()) {
+            return ResponseEntity.status(404).build();
+        }
+        return ResponseEntity.ok(matchingPlanes);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Plane> getPlaneById(@PathVariable int id) {
         Optional<Plane> plane = planes.stream().filter(p -> p.getId() == id).findFirst();
@@ -37,7 +53,38 @@ public class PlanesController {
 
     @PostMapping("/")
     public ResponseEntity<Plane> createPlane(@RequestBody Plane plane) {
-        planes.add(plane);
-        return ResponseEntity.status(201).body(plane);
+        // Check if the plane already exists
+        Optional<Plane> existingPlane = planes.stream().filter(p -> p.getId() == plane.getId()).findFirst();
+        if (existingPlane.isPresent()) {
+            return ResponseEntity.status(409).body(plane);
+        } else {
+            planes.add(plane);
+            return ResponseEntity.status(201).body(plane);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Plane> updatePlane(@PathVariable int id, @RequestBody Plane plane) {
+        Optional<Plane> existingPlane = planes.stream().filter(p -> p.getId() == id).findFirst();
+        if (existingPlane.isPresent()) {
+            Plane updatedPlane = existingPlane.get();
+            updatedPlane.setName(plane.getName());
+            updatedPlane.setYear(plane.getYear());
+            updatedPlane.setDescription(plane.getDescription());
+            return ResponseEntity.ok(updatedPlane);
+        } else {
+            return ResponseEntity.status(404).build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePlane(@PathVariable int id) {
+        Optional<Plane> plane = planes.stream().filter(p -> p.getId() == id).findFirst();
+        if (plane.isPresent()) {
+            planes.remove(plane.get());
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(404).build();
+        }
     }
 }
