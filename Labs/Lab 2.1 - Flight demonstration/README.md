@@ -46,9 +46,9 @@ what does the PlanesController do?
 
 - Request how to run the application:
 
-    ```md
-    how can I run the application?
-    ```
+```md
+how can I run the application?
+```
 
 Copilot will let you know you can run it using Maven and maybe even how to do it using Gradle. 
 
@@ -69,9 +69,9 @@ how can I install a plugin for IntelliJ?
 
 - Ask Copilot to explain the `PlanesController.ts` class
 
-    ```md
-    What does the PlanesController do?
-    ```
+```md
+What does the PlanesController do?
+```
 
 > [!NOTE]
 > GitHub Copilot will give a brief overview of the `PlanesController.java` class.
@@ -248,7 +248,7 @@ Then, allow copilot to suggest an appropriate check for this case.
         return ResponseEntity.ok(matchingPlanes);
 ```
 
-- Let's do it again, place your cursor inside the and at the top of the createPlane method.
+- Let's do it again in another method, place your cursor inside the and at the top of the `createPlane` method.
 
 - Type `// Return BadRequest if plane already exists by name` in the comment block.
 
@@ -288,100 +288,97 @@ Then, allow copilot to suggest an appropriate check for this case.
 
 - Open the `WrightBrothersApi` folder in Visual Studio Code.
 
-- Open the `Models/Airfield.ts` file.
+- Open the `src/main/java/com/arctiq/wright/model/Airfield.java` file.
 
 - Open GitHub Copilot Chat, click **+** to clear prompt history.
 
 - Ask the following question:
 
-    ```
-    @workspace using the Airfield class, create a new ApiController class with all the CRUD operations and add test data for the first 3 airfields used by the Wright Brothers as well as the router with all the routing handlers attached.
+    ```md
+    Using the Airfield class, create a new ApiController class with all the CRUD operations and add test data for the first 3 airfields used by the Wright Brothers as well as the router with all the routing handlers attached.
     ```
 
 - Copilot will give a suggestion to create an `AirfieldController` class based on the `Airfield` class.
 
-    ```typescript
-    import express, { Request, Response } from 'express';
-    import { Airfield } from '../Models/Airfield';
+    ```java
+    package com.arctiq.wright.controller;
 
-    class AirfieldsController {
-        private airfields: Airfield[];
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.*;
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.Optional;
+    import com.arctiq.wright.model.Airfield;
 
-        public router = express.Router();
+    @RestController
+    @RequestMapping("/airfields")
+    public class AirfieldController {
 
-        constructor() {
-            this.airfields = [
-                new Airfield(1, "Kitty Hawk", "North Carolina", "1900-3000", "First successful flight"),
-                new Airfield(2, "Huffman Prairie", "Ohio", "1904-1905", "First practical airplane"),
-                new Airfield(3, "Fort Myer", "Virginia", "1908-1909", "Military flight trials")
-            ];
+        private List<Airfield> airfields = new ArrayList<>();
 
-            this.router.get('/', this.getAirfields.bind(this));
-            this.router.get('/:id', this.getAirfield.bind(this));
-            this.router.post('/', this.postAirfield.bind(this));
-            this.router.delete('/:id', this.deleteAirfield.bind(this));
-            this.router.put('/:id', this.updateAirfield.bind(this));
+        public AirfieldController() {
+            airfields.add(new Airfield(1, "Huffman Prairie", "Dayton, Ohio", "1904-1910", "The Wright Brothers' primary testing and development site."));
+            airfields.add(new Airfield(2, "Kill Devil Hills", "North Carolina", "1900-1903", "Site of the Wright Brothers' first controlled, sustained flight."));
+            airfields.add(new Airfield(3, "Simms Station", "Dayton, Ohio", "1910-1916", "Location of the Wright Brothers' first civilian training school."));
         }
 
-        // GET: 
-        getAirfields(req: Request, res: Response) {
-            res.send(this.airfields);
+        @GetMapping("/")
+        public List<Airfield> getAllAirfields() {
+            return airfields;
         }
 
-        // GET: 3
-        getAirfield(req: Request, res: Response): void {
-            const id = parseInt(req.params.id);
-            if (id < 0 || id >= this.airfields.length) {
-                res.status(404).send("Airfield not found");
+        @GetMapping("/{id}")
+        public ResponseEntity<Airfield> getAirfieldById(@PathVariable int id) {
+            Optional<Airfield> airfield = airfields.stream().filter(a -> a.getId() == id).findFirst();
+            if (airfield.isPresent()) {
+                return ResponseEntity.ok(airfield.get());
+            } else {
+                return ResponseEntity.status(404).build();
             }
-            res.status(200).send(this.airfields[id]);
         }
 
-        // POST: 
-        postAirfield(req: Request, res: Response): void {
-            const airfield: Airfield = req.body;
-            this.airfields.push(airfield);
-            res.status(201).send(airfield);
-        }
-
-        // DELETE:
-        deleteAirfield(req: Request, res: Response): void {
-            const id = parseInt(req.params.id);
-            const index = this.airfields.findIndex(a => a.id === id);
-            if (index === -1) {
-                res.status(404).send("Airfield not found");
-                return;
+        @PostMapping("/")
+        public ResponseEntity<Airfield> createAirfield(@RequestBody Airfield airfield) {
+            Optional<Airfield> existingAirfield = airfields.stream().filter(a -> a.getId() == airfield.getId()).findFirst();
+            if (existingAirfield.isPresent()) {
+                return ResponseEntity.status(409).body(airfield);
+            } else {
+                airfields.add(airfield);
+                return ResponseEntity.status(201).body(airfield);
             }
-
-            this.airfields.splice(index, 1);
-            res.status(200).send("Airfield with id: " + id + " deleted");
         }
 
-        // PUT: 2
-        updateAirfield(req: Request, res: Response): void {
-            const id = parseInt(req.params.id);
-            const index = this.airfields.findIndex(a => a.id === id);
-            if (index === -1) {
-                res.status(404).send("Airfield not found");
-                return;
+        @PutMapping("/{id}")
+        public ResponseEntity<Airfield> updateAirfield(@PathVariable int id, @RequestBody Airfield airfield) {
+            Optional<Airfield> existingAirfield = airfields.stream().filter(a -> a.getId() == id).findFirst();
+            if (existingAirfield.isPresent()) {
+                Airfield updatedAirfield = existingAirfield.get();
+                updatedAirfield.setName(airfield.getName());
+                updatedAirfield.setLocation(airfield.getLocation());
+                updatedAirfield.setDatesOfUse(airfield.getDatesOfUse());
+                updatedAirfield.setSignificance(airfield.getSignificance());
+                return ResponseEntity.ok(updatedAirfield);
+            } else {
+                return ResponseEntity.status(404).build();
             }
-            const airfield: Airfield = req.body
-            this.airfields[index] = airfield;
-            res.status(200).send(airfield);
+        }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Void> deleteAirfield(@PathVariable int id) {
+            Optional<Airfield> airfield = airfields.stream().filter(a -> a.getId() == id).findFirst();
+            if (airfield.isPresent()) {
+                airfields.remove(airfield.get());
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.status(404).build();
+            }
         }
     }
-
-    export default new AirfieldsController().router;
     ```
 
-- In GitHub Copilot Chat, click the ellipses `...` and select `Insert into New File` for the suggested `AirfieldController`.
-
-- Copilot will add the code to a new empty file, but must be saved.
+- Create a new class file called AirfieldController.java in the java/com/arctiq/wright/controller folder. 
+- In GitHub Copilot Chat, click the "Insert Code Block at cursor" with the new class file open (ensure the default contents are cleared or highlighted first.)
 - Save the file by clicking pressing `Ctrl + S` or `Cmd + S`.
-- Change directory to the `Controllers` folder`.
-- Enter the file name `AirfieldController.ts` and click `Save`.
-
-<img src="../../Images/Screenshot-AirfieldController.Controller.png" width="800">
 
 > [!NOTE]
 > Copilot is not only context aware, knows you need a list of items and knows the `Air Fields` used by the Wright Brothers, the `Huffman Prairie`, which is the first one used by the Wright Brothers.
@@ -391,33 +388,23 @@ Then, allow copilot to suggest an appropriate check for this case.
 - Run the application by typing the following commands in the terminal:
 
     ```sh
-    npm run build && npm start
+    mvn spring-boot:run 
     ```
 
-- Open the `Examples/Airfields.http` file, click `Send Request` to execute the `GET all airfields` request.
+- Open the browser to `http://localhost:3000/swagger-ui/index.html` 
+- Find the `airfiled-controller` group of actions.
+- Expand the '`GET /airfields/` action.
+- Click the `Try it out` button on the right side of this action.
+- Click `Execute` to get all of the airfields.
 
-- You will see that the flight is taking off and the response is `200 OK`.
+- You will see that the list of airfields (likely) includes three airfields as:
+  - Huffman Prairie
+  - Kill Devil Hill
+  - Simms Station
 
-- Response will be:
+- Response will look like:
 
-    ```json
-    HTTP/1.1 200 OK
-    
-    ...
-
-    Connection: close
-
-    [
-        {
-            "id": 1,
-            "name": "Kitty Hawk",
-            "location": "North Carolina",
-            "datesOfUse": "1900-3000",
-            "significance": "First successful flight"
-        },
-        /* rest of the airfields */
-    ]
-    ```
+![Screenshot of Airfields List](../../Images/Screenshot-Lab2.1-Airfields-list.png)
 
 - Stop the application by pressing `Ctrl+C` in the terminal window.
 
