@@ -80,7 +80,41 @@ public class FlightsController {
     public ResponseEntity<String> updateStatus(@PathVariable int id, @RequestBody FlightStatus status) {
         Optional<Flight> flight = flights.stream().filter(f -> f.getId() == id).findFirst();
         if (flight.isPresent()) {
-            // Implement your logic for updating flight status
+            switch (status) {
+                case Boarding:
+                    if (flight.get().getDepartureTime().before(new Date())) {
+                        return ResponseEntity.status(400).body("Cannot board a flight that has already departed.");
+                    }
+                    break;
+                case Departed:
+                    if (flight.get().getDepartureTime().after(new Date())) {
+                        return ResponseEntity.status(400).body("Cannot depart a flight that has not yet boarded.");
+                    }
+                    if (flight.get().getStatus() == FlightStatus.Cancelled) {
+                        return ResponseEntity.status(400).body("Cannot depart a cancelled flight.");
+                    }
+                    break;
+                    // add a case for status "inAir"
+                case InAir:
+                    if (flight.get().getDepartureTime().after(new Date())) {
+                        return ResponseEntity.status(400).body("Cannot set a flight to inAir that has not yet departed.");
+                    }
+                    if (flight.get().getArrivalTime().before(new Date())) {
+                        return ResponseEntity.status(400).body("Cannot set a flight to inAir that has already arrived.");
+                    }
+                    break;
+                case Arrived:
+                    if (flight.get().getArrivalTime().after(new Date())) {
+                        return ResponseEntity.status(400).body("Cannot arrive a flight that has not yet departed.");
+                    }
+                    break;
+                case Cancelled:
+                    if (flight.get().getDepartureTime().before(new Date())) {
+                        return ResponseEntity.status(400).body("Cannot cancel a flight that has already departed.");
+                    }
+                    break;
+
+            }
             return ResponseEntity.status(200).body("Flight status updated.");
         } else {
             return ResponseEntity.status(404).build();
