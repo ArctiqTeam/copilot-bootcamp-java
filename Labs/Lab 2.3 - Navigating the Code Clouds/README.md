@@ -531,7 +531,6 @@ Flight number WB001
 
 ![Swagger UI Flight POST Response](../../Images/Screenshot-Lab2.2-SwaggerFlightPostResponse.png)
 
-
 - Find the `GET` `/flights/` action just above the `POST` action in the Swagger UI and `Try it out` too.
 
 - The Swagger UI response will now include the `FlightLog` property as follows:
