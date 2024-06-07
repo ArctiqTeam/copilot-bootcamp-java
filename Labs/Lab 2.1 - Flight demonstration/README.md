@@ -1,6 +1,6 @@
 # Lab 2.1 - Flight demonstration: Basic Coding with Copilot Assistance
 
-This module demonstrates how to utilize GitHub Copilot's Chat Extension and its agents (@workspace, @terminal, @vscode) to understand and navigate a codebase, implement REST API methods, generate code from comments, and maintain coding style consistency, culminating in a comprehensive, productivity-enhancing coding experience.
+This module demonstrates how to utilize GitHub Copilot's Chat Extension to understand and navigate a codebase, implement REST API methods, generate code from comments, and maintain coding style consistency, culminating in a comprehensive, productivity-enhancing coding experience.
 
 ## Prerequisites
 
