@@ -1,6 +1,5 @@
-package com.arctiq.wright;
+package com.arctiq.wright.controller;
 
-import com.arctiq.wright.controller.FlightsController;
 import com.arctiq.wright.model.Flight;
 import com.arctiq.wright.model.FlightStatus;
 import org.junit.jupiter.api.BeforeEach;
