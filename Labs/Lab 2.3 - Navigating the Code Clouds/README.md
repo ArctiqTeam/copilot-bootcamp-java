@@ -48,7 +48,7 @@ This lab exercise delves into GitHub Copilot's advanced features, teaching parti
 
 - Type `Add a constructor that initializes the imageUrl property.` in the chat prompt.
 
-    ![Lab 2.2 New Property Screenshot](../../Images/Screenshot-Lab2.2-New-Property.png)
+    ![Lab 2.2 New Property Screenshot](../../Images/Screenshot-Lab2.3-New-Property.png)
 
 - Copilot will suggest a new constructor method that initializes the `imageUrl` property.
 
@@ -77,7 +77,7 @@ This lab exercise delves into GitHub Copilot's advanced features, teaching parti
 
 The resulting code inline should look like this:
 
-![Lab2.2_Complete_List](../../Images/Screenshot-Lab2.2-Complete-List.png)
+![Lab2.2_Complete_List](../../Images/Screenshot-Lab2.3-Complete-List.png)
 
 > [!NOTE]
 > GitHub Copilot can do more than one thing at a time. It added the new property to each plane and next Wright Brothers plane to the list of planes.
@@ -88,7 +88,7 @@ The resulting code inline should look like this:
 
 - Select all content of the method `GetPlaneById` in the `PlanesController.java` file, then press `Ctrl/Cmd + I` to bring up the inline chat prompt. Type `/doc` in the chat prompt.
 
-![GetPlaneByID](../../Images/Screenshot-Lab2.2-GetById-Method.png)
+![GetPlaneByID](../../Images/Screenshot-Lab2.3-GetById-Method.png)
 
 - Do not accept the suggestion, click `Discard`.
 
@@ -190,7 +190,7 @@ The results here may not differ at all as Copilot will likely use JavaDoc by def
   Refactor the selected code to make it more readable and maintainable.
   ```
 
-![Refactored Flight Status Method](../../Images/Screenshot-Lab2.2-UpdateFlightStatus-Refactor.png)
+![Refactored Flight Status Method](../../Images/Screenshot-Lab2.3-UpdateFlightStatus-Refactor.png)
 
 > [!NOTE]
 > GitHub Copilot Chat understands `the selected code`. It will use the selected code in your editor to generate the refactoring suggestions.
@@ -383,7 +383,7 @@ Flight number WB001
 
 - Create a new Java Class file using the right-click menu on the `model` folder and select `New -> Java Class` and name it `FlightLog.java`.
 
-![Create FlightLog Class](../../Images/Screenshot-Lab2.2-FlightLogSignature.png)
+![Create FlightLog Class](../../Images/Screenshot-Lab2.3-FlightLogSignature.png)
 
 > [!NOTE]
 > GitHub Copilot in IntelliJ does not have the create new file option as the VSCode version has.
@@ -501,11 +501,11 @@ Flight number WB001
 - Open `WrightBrothersApi/Examples/Flights.http` file in the Visual Studio code IDE and POST a new flight.
 - Open a new browser tab to the following URL: `http://localhost:3000/swagger-ui/index.html`
 
-![Localhost Swagger UI](../../Images/Screenshot-Lab2.2-SwaggerPost.png)
+![Localhost Swagger UI](../../Images/Screenshot-Lab2.3-SwaggerPost.png)
 
 - Find the API Actions for `Flights` under `flights-controller`
 
-![Swagger UI Flight POST Action](../../Images/Screenshot-Lab2.2-SwaggerFlightPost.png)
+![Swagger UI Flight POST Action](../../Images/Screenshot-Lab2.3-SwaggerFlightPost.png)
 
 - Locate the `POST` `/flights/` and click on the `Try it out` button.
 - Copy the JSON body from `Examples/Flights.http` as:
@@ -529,7 +529,7 @@ Flight number WB001
 - paste this JSON into the `Request body` of the `POST` on `/flights/` and click on `Execute`
 - observe that the result is 201 (Created).
 
-![Swagger UI Flight POST Response](../../Images/Screenshot-Lab2.2-SwaggerFlightPostResponse.png)
+![Swagger UI Flight POST Response](../../Images/Screenshot-Lab2.3-SwaggerFlightPostResponse.png)
 
 - Find the `GET` `/flights/` action just above the `POST` action in the Swagger UI and `Try it out` too.
 
