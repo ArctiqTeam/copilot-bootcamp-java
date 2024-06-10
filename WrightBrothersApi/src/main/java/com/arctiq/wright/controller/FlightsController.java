@@ -1,5 +1,7 @@
 package com.arctiq.wright.controller;
 
+import com.arctiq.wright.exception.FlightNotFoundException;
+import com.arctiq.wright.exception.InvalidStatusException;
 import com.arctiq.wright.model.Flight;
 import com.arctiq.wright.model.FlightStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,50 +78,71 @@ public class FlightsController {
         }
     }
 
-    @PostMapping("/{id}/status")
-    public ResponseEntity<String> updateStatus(@PathVariable int id, @RequestBody FlightStatus status) {
-        Optional<Flight> flight = flights.stream().filter(f -> f.getId() == id).findFirst();
-        if (flight.isPresent()) {
-            switch (status) {
-                case Boarding:
-                    if (flight.get().getDepartureTime().before(new Date())) {
-                        return ResponseEntity.status(400).body("Cannot board a flight that has already departed.");
-                    }
-                    break;
-                case Departed:
-                    if (flight.get().getDepartureTime().after(new Date())) {
-                        return ResponseEntity.status(400).body("Cannot depart a flight that has not yet boarded.");
-                    }
-                    if (flight.get().getStatus() == FlightStatus.Cancelled) {
-                        return ResponseEntity.status(400).body("Cannot depart a cancelled flight.");
-                    }
-                    break;
-                    // add a case for status "inAir"
-                case InAir:
-                    if (flight.get().getDepartureTime().after(new Date())) {
-                        return ResponseEntity.status(400).body("Cannot set a flight to inAir that has not yet departed.");
-                    }
-                    if (flight.get().getArrivalTime().before(new Date())) {
-                        return ResponseEntity.status(400).body("Cannot set a flight to inAir that has already arrived.");
-                    }
-                    break;
-                case Arrived:
-                    if (flight.get().getArrivalTime().after(new Date())) {
-                        return ResponseEntity.status(400).body("Cannot arrive a flight that has not yet departed.");
-                    }
-                    break;
-                case Cancelled:
-                    if (flight.get().getDepartureTime().before(new Date())) {
-                        return ResponseEntity.status(400).body("Cannot cancel a flight that has already departed.");
-                    }
-                    break;
+@PostMapping("/{id}/status")
+public ResponseEntity<String> updateStatus(@PathVariable int id, @RequestBody FlightStatus status) {
+    Flight flight = flights.stream()
+                           .filter(f -> f.getId() == id)
+                           .findFirst()
+                           .orElseThrow(() -> new FlightNotFoundException("Flight with id " + id + " not found"));
 
-            }
-            return ResponseEntity.status(200).body("Flight status updated.");
-        } else {
-            return ResponseEntity.status(404).build();
-        }
+    switch (status) {
+        case Boarding:
+            handleBoarding(flight);
+            break;
+        case Departed:
+            handleDeparted(flight);
+            break;
+        case InAir:
+            handleInAir(flight);
+            break;
+        case Arrived:
+            handleArrived(flight);
+            break;
+        case Cancelled:
+            handleCancelled(flight);
+            break;
+        default:
+            throw new InvalidStatusException("Invalid status: " + status);
     }
+
+    return ResponseEntity.status(200).body("Flight status updated.");
+}
+
+private void handleBoarding(Flight flight) {
+    if (flight.getDepartureTime().before(new Date())) {
+        throw new InvalidStatusException("Cannot board a flight that has already departed.");
+    }
+}
+
+private void handleDeparted(Flight flight) {
+    if (flight.getDepartureTime().after(new Date())) {
+        throw new InvalidStatusException("Cannot depart a flight that has not yet boarded.");
+    }
+    if (flight.getStatus() == FlightStatus.Cancelled) {
+        throw new InvalidStatusException("Cannot depart a cancelled flight.");
+    }
+}
+
+private void handleInAir(Flight flight) {
+    if (flight.getDepartureTime().after(new Date())) {
+        throw new InvalidStatusException("Cannot set a flight to inAir that has not yet departed.");
+    }
+    if (flight.getArrivalTime().before(new Date())) {
+        throw new InvalidStatusException("Cannot set a flight to inAir that has already arrived.");
+    }
+}
+
+private void handleArrived(Flight flight) {
+    if (flight.getArrivalTime().after(new Date())) {
+        throw new InvalidStatusException("Cannot arrive a flight that has not yet departed.");
+    }
+}
+
+private void handleCancelled(Flight flight) {
+    if (flight.getDepartureTime().before(new Date())) {
+        throw new InvalidStatusException("Cannot cancel a flight that has already departed.");
+    }
+}
 
     @PostMapping("/{id}/takeFlight/{flightLength}")
     public ResponseEntity<String> takeFlight(@PathVariable int id, @PathVariable int flightLength) {

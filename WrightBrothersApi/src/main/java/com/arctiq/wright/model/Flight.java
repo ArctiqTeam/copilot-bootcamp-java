@@ -1,5 +1,6 @@
 package com.arctiq.wright.model;
 
+import java.text.ParseException;
 import java.util.Date;
 
 public class Flight {
@@ -13,6 +14,7 @@ public class Flight {
     private int fuelRange;
     private boolean fuelTankLeak;
     private String flightLogSignature;
+    private FlightLog flightLog;
     private String aerobaticSequenceSignature;
 
     public Flight(int id, String flightNumber, String origin, String destination, Date departureTime, Date arrivalTime, FlightStatus status, int fuelRange, boolean fuelTankLeak, String flightLogSignature, String aerobaticSequenceSignature) {
@@ -27,6 +29,11 @@ public class Flight {
         this.fuelTankLeak = fuelTankLeak;
         this.flightLogSignature = flightLogSignature;
         this.aerobaticSequenceSignature = aerobaticSequenceSignature;
+        try {
+            this.flightLog = FlightLog.parse(flightLogSignature);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     // getters
@@ -72,6 +79,10 @@ public class Flight {
 
     public String getAerobaticSequenceSignature() {
         return aerobaticSequenceSignature;
+    }
+
+    public FlightLog getFlightLog() {
+        return flightLog;
     }
 
     // setters

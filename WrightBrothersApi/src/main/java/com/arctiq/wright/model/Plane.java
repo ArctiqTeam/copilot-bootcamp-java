@@ -7,12 +7,16 @@ public class Plane {
     private String description;
     private int rangeInKm;
 
-    public Plane(int id, String name, int year, String description, int rangeInKm) {
+    // New property
+    private String imageUrl;
+
+    public Plane(int id, String name, int year, String description, int rangeInKm, String imageUrl) {
         this.id = id;
         this.name = name;
         this.year = year;
         this.description = description;
         this.rangeInKm = rangeInKm;
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -54,4 +58,8 @@ public class Plane {
     public void setRangeInKm(int rangeInKm) {
         this.rangeInKm = rangeInKm;
     }
+
+    public String getImageUrl() { return imageUrl;}
+
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }
