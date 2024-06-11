@@ -255,7 +255,7 @@ class PlanesControllerTest {
     - Assert the amount of planes returned
     - Use FluentAssertions
 
-    Give me only the test method as a result to apply in #file:PlanesControllerTests.cs
+    Give me only the test method as a result to apply in #file:PlanesControllerTests.java
     ```
 
 ![SearchByName Tests](../../Images/Screenshot-Lab2.2-SearchByNameTest.png)
