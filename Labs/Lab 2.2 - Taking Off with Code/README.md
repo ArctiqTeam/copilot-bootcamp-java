@@ -100,11 +100,11 @@ This lab exercise guides participants through coding exercises using GitHub Copi
 
 - For `#selection`, open the `PlanesController.java` file.
 
-- Select all the code for the `GetById` method.
+- Select all the code for the `GetPlaneById` method.
 
 - Press `Enter`, GitHub Copilot will automatically suggest the unit tests attributes.
 
-- The problem is that the generated test methods do not match with the style of the existing test methods in the `PlanesControllerTests.cs` file.
+- The problem is that the generated test methods do not match with the style of the existing test methods in the `PlanesControllerTests.java` file.
 
 - Let's fix this. Open Copilot Chat and Copy/Paste the following and place your cursor after `tests should match`:
 
@@ -249,7 +249,7 @@ class PlanesControllerTest {
 
     ## Technical Details
 
-    - Create 5 Planes about the Wright Brothers based on #file:Plane.cs for the scenarios and POST to SetupPlanesData
+    - Create 5 Planes about the Wright Brothers based on #file:Plane.java for the scenarios and POST to SetupPlanesData
     - When Test Data contains 3 different "Wright Flyer" planes then assert count is also 3
     - Use Theory attribute
     - Assert the amount of planes returned
