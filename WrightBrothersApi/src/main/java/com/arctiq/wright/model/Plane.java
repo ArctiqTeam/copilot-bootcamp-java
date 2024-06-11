@@ -1,5 +1,7 @@
 package com.arctiq.wright.model;
 
+import java.util.Objects;
+
 public class Plane {
     private int id;
     private String name;
@@ -53,5 +55,21 @@ public class Plane {
 
     public void setRangeInKm(int rangeInKm) {
         this.rangeInKm = rangeInKm;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Plane plane = (Plane) obj;
+        return id == plane.id &&
+               year == plane.year &&
+               rangeInKm == plane.rangeInKm &&
+               Objects.equals(name, plane.name) &&
+               Objects.equals(description, plane.description);
     }
 }
