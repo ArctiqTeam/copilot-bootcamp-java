@@ -18,11 +18,11 @@ class PlanesControllerTest {
     }
 
     @Test
-void testGetAllPlanes() {
-    List<Plane> actualPlanes = planesController.getAllPlanes();
+    void testGetAllPlanes() {
+        List<Plane> actualPlanes = planesController.getAllPlanes();
 
-    assertFalse(actualPlanes.isEmpty());
-}
+        assertFalse(actualPlanes.isEmpty());
+    }
 
     // Add more test methods here for other methods in the PlanesController class
 }
