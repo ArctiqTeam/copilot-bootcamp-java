@@ -233,14 +233,14 @@ class PlanesControllerTest {
 > [!NOTE]
 > Setting up data like this is not recommended in a production environment. It's better to use a database or a mock database for this purpose. For the sake of this lab, we are using this approach.
 
-- In the following exercise you will combine everything you learned in the previous steps, but then for the `SearchByName` method. The following prompt is a more detailed description of a problem and the expected solution. You will prompt GitHub Copilot to make it use a `#selection`. besides that you will use `#file` two times in the prompt to make sure Copilot knows the context of the problem.
+- In the following exercise you will combine everything you learned in the previous steps, but then for the `SearchByName` method. The following prompt is a more detailed description of a problem and the expected solution.
 
 - Open GitHub Copilot Chat, click **+** to clear prompt history.
 
 - Copy/Paste the following in the Copilot Chat window:
 
     ```md
-    Generate unit tests for #selection the following scenario:
+    Generate unit tests for the selection the following scenario:
 
     - Specific Search for "Wright Flyer III"
     - General Search for "Wright"
@@ -249,13 +249,12 @@ class PlanesControllerTest {
 
     ## Technical Details
 
-    - Create 5 Planes about the Wright Brothers based on #file:Plane.java for the scenarios and POST to SetupPlanesData
+    - Create 5 Planes about the Wright Brothers based on the file Plane.java for the scenarios and POST to SetupPlanesData
     - When Test Data contains 3 different "Wright Flyer" planes then assert count is also 3
-    - Use Theory attribute
     - Assert the amount of planes returned
-    - Use FluentAssertions
+    - Use the AssertJ library
 
-    Give me only the test method as a result to apply in #file:PlanesControllerTests.java
+    Give me only the test method as a result to apply in the file PlanesControllerTests.java
     ```
 
 ![SearchByName Tests](../../Images/Screenshot-Lab2.2-SearchByNameTest.png)
@@ -284,9 +283,6 @@ class PlanesControllerTest {
     ```
 
 - It is a good idea to add the two files referenced in the prompt using the `GitHub Copilot` -> `Reference File in Chat`.
-
-> [!NOTE]
-> This example shows how `#file` is used in a way how a human might approach a problem. You can include context at any time to help Copilot understand the problem or solution better.
 
 - Open Copilot Chat and Copy/Paste the prompt.
 
