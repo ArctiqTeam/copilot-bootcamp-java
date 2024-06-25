@@ -20,7 +20,7 @@ This lab exercise guides participants through coding exercises using GitHub Copi
   - Step 3 - Takeoff - Adding Unit Tests for Case Sensitivity (Optional)
   - Step 4 - Ascending to the Clouds: Creating the AirfieldController from thin air (Optional)
 
-### Step 1: Taxying to the Runway - Run existing unit tests
+### Step 1: Taxiing to the Runway - Run existing unit tests
 
 - Open GitHub Copilot Chat, click **+** to clear prompt history.
 
