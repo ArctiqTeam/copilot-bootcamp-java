@@ -15,10 +15,10 @@ This lab exercise guides participants through coding exercises using GitHub Copi
 - Simple coding exercises using GitHub Copilot, focusing on understanding its suggestions and capabilities.
 - Pair programming: One 'pilot' codes, the other guides using Copilot's suggestions.
 
-  - Step 1 - Taxiing to the Runway - Run existing unit tests
-  - Step 2 - Pre-takeoff Pilot Checks - Completing Unit Tests
-  - Step 3 - Takeoff - Adding Unit Tests for Case Sensitivity (Optional)
-  - Step 4 - Ascending to the Clouds: Creating the AirfieldController from thin air (Optional)
+    - Step 1 - Taxying to the Runway - Run Existing Unit Tests
+    - Step 2 - Pre-takeoff Pilot Checks - Improving Test Coverage
+    - Step 3 - Taking off - Applying TDD using Copilot
+    - Step 4 - Ascending to the Clouds: Creating the AirfieldController from Thin Air (Optional)
 
 ### Step 1: Taxiing to the Runway - Run existing unit tests
 
@@ -71,7 +71,7 @@ This lab exercise guides participants through coding exercises using GitHub Copi
 > [!NOTE]
 > Only the results section of the test output was included above for brevity.
 
-### Step 2: Pre-takeoff Pilot Checks - Completing Unit Tests
+### Step 2: Pre-takeoff Pilot Checks - Improving Test Coverage
 
 - Open GitHub Copilot Chat, click **+** to clear prompt history.
 
@@ -200,7 +200,7 @@ class PlanesControllerTest {
 
 ## Optional
 
-### Step 3: Taking Off - Developing Robust Tests
+### Step 3: Taking Off - Applying TDD using Copilot
 
 - Open the `PlanesController.java` file.
 
